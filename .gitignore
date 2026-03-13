@@ -1,0 +1,20 @@
+# IDE files
+.idea/
+*.iml
+.vscode/
+
+# Local tooling metadata
+.jbeval/
+.idea_local_backup/
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+~$*
+
