@@ -14,7 +14,7 @@ class Solution:
         '''
 
         def dfs(i, start):
-            if i == n:
+            if i == n:  # 遍历完全部字符
                 ans.append(path.copy())
                 return
 
@@ -26,7 +26,7 @@ class Solution:
             t = s[start:i + 1]
             if t == t[::-1]:  # 是否回文
                 path.append(t)
-                dfs(i + 1, i + 1)  # start = i + 1,表示下一个子串从i+1位置开始
+                dfs(i + 1, i + 1)  # start = i + 1,表示下一个子串从i+1位置开始，即在当前回文串基础上看再往后追加字符还是不是回文串
                 path.pop()  # 恢复现场
 
         dfs(0, 0)
