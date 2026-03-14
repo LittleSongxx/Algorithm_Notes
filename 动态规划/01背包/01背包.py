@@ -20,55 +20,55 @@ class Solution:
         n = len(w)
 
         @lru_cache(maxsize=None)
-        def dp(i, cap):
+        def dfs(i, cap):
             if i < 0:
                 return 0
             # 01背包问题由于每个物品最多选一次，所以不论选不选都是递归到i-1
             if cap < w[i]:  # 装不下第i个物品
-                return dp(i - 1, cap)  # 直接递归下一个
-            return max(dp(i - 1, cap),  # 不选
-                       dp(i - 1, cap - w[i]) + v[i])  # 选，容量减少，value增加
+                return dfs(i - 1, cap)  # 直接递归下一个
+            return max(dfs(i - 1, cap),  # 不选
+                       dfs(i - 1, cap - w[i]) + v[i])  # 选，容量减少，value增加
 
-        return dp(n - 1, capacity)
+        return dfs(n - 1, capacity)
 
     def zero_one_knapsack_2d(self, capacity: int, w: List[int], v: List[int]) -> int:
         """
         递推法（二维数组）
-        dp[i][j] 表示考虑前i件物品，背包容量为j时的最大价值
+        dfs[i][j] 表示考虑前i件物品，背包容量为j时的最大价值
         时间复杂度: O(n * capacity)
         空间复杂度: O(n * capacity)
         """
         n = len(w)
-        dp = [[0] * (capacity + 1) for _ in range(n)]  # n行capacity+1列的二维数组
+        dfs = [[0] * (capacity + 1) for _ in range(n)]  # n行capacity+1列的二维数组
 
         for j in range(w[0], capacity + 1):
-            dp[0][j] = v[0]
+            dfs[0][j] = v[0]
 
         for i in range(1, n): # 遍历每件物品
             for j in range(capacity + 1):  # 遍历每个可能的容量
                 if j < w[i]: # 容量不足
-                    dp[i][j] = dp[i - 1][j]
+                    dfs[i][j] = dfs[i - 1][j]
                 else:
-                    dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - w[i]] + v[i])
+                    dfs[i][j] = max(dfs[i - 1][j], dfs[i - 1][j - w[i]] + v[i])
 
-        return dp[n - 1][capacity]
+        return dfs[n - 1][capacity]
 
     def zero_one_knapsack_1d(self, capacity: int, w: List[int], v: List[int]) -> int:
         """
         递推法（一维数组优化）
-        dp[j] 表示背包容量为j时的最大价值
+        dfs[j] 表示背包容量为j时的最大价值
         关键：倒序遍历容量，避免物品重复选择
         时间复杂度: O(n * capacity)
         空间复杂度: O(capacity)
         """
         n = len(w)
-        dp = [0] * (capacity + 1)
+        dfs = [0] * (capacity + 1)
 
         for i in range(n):
             for j in range(capacity, w[i] - 1, -1):
-                dp[j] = max(dp[j], dp[j - w[i]] + v[i])
+                dfs[j] = max(dfs[j], dfs[j - w[i]] + v[i])
 
-        return dp[capacity]
+        return dfs[capacity]
 
 
 if __name__ == '__main__':
