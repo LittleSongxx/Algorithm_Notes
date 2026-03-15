@@ -13,21 +13,26 @@ class Solution:
 
     def zero_one_knapsack_recursive(self, capacity: int, w: List[int], v: List[int]) -> int:
         """
-        递归法（无优化，存在大量重复计算）
-        时间复杂度: O(2^n)
-        空间复杂度: O(n)
+        递归法
+        时间复杂度: O(n * capacity)
+        空间复杂度: O(n * capacity)
         """
         n = len(w)
 
         @lru_cache(maxsize=None)
-        def dfs(i, cap):
+        def dfs(i: int, cap: int) -> int:
             if i < 0:
                 return 0
-            # 01背包问题由于每个物品最多选一次，所以不论选不选都是递归到i-1
-            if cap < w[i]:  # 装不下第i个物品
-                return dfs(i - 1, cap)  # 直接递归下一个
-            return max(dfs(i - 1, cap),  # 不选
-                       dfs(i - 1, cap - w[i]) + v[i])  # 选，容量减少，value增加
+
+            # 不选第 i 个物品，不选的话是无条件的
+            ans = dfs(i - 1, cap)
+
+            # 选第 i 个物品，选第 i 个物品的前提是剩余容量cap足够
+            if cap >= w[i]:
+                ans = max(ans,  # 不选
+                          dfs(i - 1, cap - w[i]) + v[i])  # 选，第i个就不能再选，递归到i-1
+
+            return ans
 
         return dfs(n - 1, capacity)
 
@@ -44,9 +49,9 @@ class Solution:
         for j in range(w[0], capacity + 1):
             dfs[0][j] = v[0]
 
-        for i in range(1, n): # 遍历每件物品
+        for i in range(1, n):  # 遍历每件物品
             for j in range(capacity + 1):  # 遍历每个可能的容量
-                if j < w[i]: # 容量不足
+                if j < w[i]:  # 容量不足
                     dfs[i][j] = dfs[i - 1][j]
                 else:
                     dfs[i][j] = max(dfs[i - 1][j], dfs[i - 1][j - w[i]] + v[i])
