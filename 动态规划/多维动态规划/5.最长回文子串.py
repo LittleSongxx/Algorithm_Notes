@@ -1,6 +1,3 @@
-from functools import lru_cache
-
-
 class Solution:
     def longestPalindrome(self, s: str) -> str:
         if not s:
@@ -32,7 +29,7 @@ class Solution:
             # 以 i 为中心，尝试向左右两边扩展
             # T[i + 1 + P[i]] 是右侧下一个字符，T[i - 1 - P[i]] 是左侧下一个字符
             while T[i + 1 + P[i]] == T[i - 1 - P[i]]:
-                P[i] += 1 # 以i为中心的最长回文半径+1
+                P[i] += 1  # 以i为中心的最长回文半径+1
 
             # 第三步：如果新计算出的回文边界超过了目前的 R，则更新 C 和 R
             if i + P[i] > R:  # 中心坐标+半径>原来的最右回文边界
