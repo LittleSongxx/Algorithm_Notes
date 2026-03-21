@@ -16,7 +16,7 @@ class Solution:
         curr = root
 
         while curr:
-            # 如果左子树不为空，才需要进行“搭桥”和“转移”操作
+            # 左子树不为空，才需要进行“搭桥”和“转移”操作
             if curr.left:
                 pre = curr.left
                 # 1. 找左子树的最右节点 (这就是前序遍历时左子树的最后一个节点)
