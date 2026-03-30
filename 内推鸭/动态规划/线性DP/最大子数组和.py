@@ -1,4 +1,4 @@
-from math import inf
+from collections import deque
 
 n = int(input())
 a = list(map(int, input().split()))
