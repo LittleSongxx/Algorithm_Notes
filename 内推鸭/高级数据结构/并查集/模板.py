@@ -3,7 +3,7 @@ n, m = map(int, input().split())
 # parent[i] 表示 i 的父节点
 # 一开始每个元素的父节点都是自己
 parent = list(range(n + 1))
-
+# parent = {}  # 当数字范围非常大时改用字典（哈希表）来存
 
 def find(x):
     # 找到 x 所在集合的根节点
