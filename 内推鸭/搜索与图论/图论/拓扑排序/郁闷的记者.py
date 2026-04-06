@@ -3,7 +3,6 @@ from collections import deque
 # 读入队伍数量 n，比赛结果数量 m
 n, m = map(int, input().split())
 
-# 用 set 是为了防止重复边把入度重复加上
 graph = [[] for _ in range(n + 1)]
 
 indegree = [0] * (n + 1)
