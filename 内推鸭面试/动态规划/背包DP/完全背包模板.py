@@ -14,7 +14,7 @@ for i in range(n):
     w = weights[i]
     v = values[i]
 
-    for j in range(W, w - 1, -1):
+    for j in range(w, W + 1):
         dp[j] = max(dp[j], dp[j - w] + v)
 
 print(dp[W])
