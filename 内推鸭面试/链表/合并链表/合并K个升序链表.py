@@ -47,7 +47,7 @@ def merge_k_lists(lists):
         cur.next = node
         cur = cur.next
 
-        # 把该节点的下一个节点放入堆中
+        # 把该节点的下一个节点放入堆中，会自动排序得到最小的队头
         if node.next:
             heapq.heappush(heap, (node.next.val, uid, node.next))
             uid += 1  # 在节点值相同时，后入队的优先级更低
