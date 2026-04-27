@@ -53,3 +53,29 @@ def merge_k_lists(lists):
             uid += 1  # 在节点值相同时，后入队的优先级更低
 
     return dummy.next
+
+
+# 读取链表数量
+k = int(input())
+lists = []
+# 逐行读取并建链
+for _ in range(k):
+    line = input().strip()
+    if not line:  # 空行 = 空链表
+        lists.append(None)
+        continue
+    vals = list(map(int, line.split()))
+    dummy = ListNode(0)
+    tail = dummy
+    for v in vals:
+        tail.next = ListNode(v)
+        tail = tail.next
+    lists.append(dummy.next)
+
+# 调用合并函数并输出结果
+result = merge_k_lists(lists)
+res = []
+while result:
+    res.append(str(result.val))
+    result = result.next
+print(' '.join(res))
